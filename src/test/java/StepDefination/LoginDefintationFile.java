@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import PageFile.LoginPageFile;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,12 +17,17 @@ import junit.framework.Assert;
 public class LoginDefintationFile {
        WebDriver driver;
        LoginPageFile loginPage;
-	    
+	   
+       @Before
+       public void launch_browser()
+       {
+    	   System.setProperty("webdriver.chrome.driver","E:\\SelemiumProject\\chromedriver-win64\\chromedriver.exe");
+			driver=new ChromeDriver(); 
+       }
+       
 		@Given("user launch the application")
 		public void user_launch_the_application()
 		{
-			System.setProperty("webdriver.chrome.driver","E:\\SelemiumProject\\chromedriver-win64\\chromedriver.exe");
-			driver=new ChromeDriver();
 			driver.get("https://www.demoblaze.com/");
 		}
 		
@@ -39,9 +46,14 @@ public void enterUserDetails(String userName,String password) throws Interrupted
     }
 
     @Then("user navigate to application")
-    public void user_navigate_to_application() {
+    public void user_navigate_to_application() throws InterruptedException {
         // Write code here that turns the phrase above into concrete actions
     	assertTrue(loginPage.nagivatePage());
+    }
+    
+    @After
+    public void lagout_application() {
+    	loginPage.lagout();
     }
 	}
 

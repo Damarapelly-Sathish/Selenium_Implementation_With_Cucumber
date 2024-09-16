@@ -24,8 +24,11 @@ public class LoginPageFile {
 	@FindBy(xpath="//button[text()='Log in']")
 	WebElement lognButton;
 	
-	@FindBy(id="nameofuser")
+	@FindBy(xpath=("//a[contains(text(),\"Welcome SathishDamarapelly\")]"))
 	WebElement verify;
+	
+	@FindBy(id="logout2")
+	WebElement lagout;
 	
 	public LoginPageFile(WebDriver driver) {
 		PageFactory.initElements(driver,this);
@@ -42,7 +45,12 @@ public class LoginPageFile {
 		lognButton.click();
 	}
 	
-	public boolean nagivatePage() {
+	public boolean nagivatePage() throws InterruptedException {
+		Thread.sleep(2000);
 	    return verify.isDisplayed();
+	}
+	
+	public void lagout() {
+		lagout.click();
 	}
 }
